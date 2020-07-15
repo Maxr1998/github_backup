@@ -1,0 +1,9 @@
+[auth]
+username = <username>
+token = <github personal access token>
+
+[target]
+path = <target path on your system>
+excluded =
+    User/Repo1
+    User/Repo2
