@@ -3,6 +3,7 @@
 import configparser
 import json
 import subprocess
+from fnmatch import fnmatch
 from os.path import isdir
 
 import requests
@@ -32,11 +33,13 @@ if not isdir(target):
     print(f'Path \'{target}\' doesn\'t exist, aborting')
     exit(1)
 
-excluded = (target_conf.get('excluded') or '\n').split('\n')[1:]
+excludes = (target_conf.get('exclude') or '\n').split('\n')[1:]
+includes = (target_conf.get('include') or '\n').split('\n')[1:]
 
 count = 0
 for path, name, url in repos:
-    if name in excluded:
+    if any(fnmatch(name, exclude) for exclude in excludes) and \
+            not any(fnmatch(name, include) for include in includes):
         continue
 
     if not isdir(f'{target}/{path}'):

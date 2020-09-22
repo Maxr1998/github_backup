@@ -4,6 +4,9 @@ token = <github personal access token>
 
 [target]
 path = <target path on your system>
-excluded =
+exclude =
     User/Repo1
     User/Repo2
+    Orga/*
+include =
+    Orga/SomeRepo
